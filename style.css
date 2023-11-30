@@ -85,6 +85,21 @@ body {
   justify-content: center;
 }
 
+.seventh-face,
+.eighth-face,
+.ninth-face {
+  display: flex;
+  justify-content: space-between;
+}
+
+.seventh-face .column,
+.eighth-face .column,
+.ninth-face .column {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
 #dice {
   display: flex;
   justify-content: center;
