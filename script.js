@@ -35,11 +35,18 @@ RNG.prototype.choice = function (array) {
   return array[this.nextRange(0, array.length)];
 };
 
+RNG.prototype.choiceB = function (len) {
+  return this.nextRange(0, len);
+};
+
 var rng = new RNG(isNaN(game) ? 10 : parseInt(game));
 
-var digits = ["1", "2", "3", "4", "5", "6"];
-for (var i = 0; i < round * 2; i++) {
-  resultArray[i] = rng.choice(digits);
+var firstDigit  = ["0", "1", "2", "3", "4", "5"];
+var secondDigit = ["0", "1", "2", "3", "4", "5", "6", "7", "8",];
+for (var i = 0; i < round *2; i++) {
+  resultArray[i] = rng.choiceB(6);
+  i++;
+  resultArray[i] = rng.choiceB(10);
 }
 
 diceRoll = resultArray.splice(-2);
@@ -48,6 +55,8 @@ if (resultArray.length > 0) {
 }
 
 const dice = [
+`<div class="dice first-face">
+      </div>`,
   `<div class="dice first-face">
         <span class="dot">
         </span>
@@ -101,6 +110,54 @@ const dice = [
             <span class="dot"></span>
       </div>
     </div>`,
+    `<div class="seventh-face dice">
+  <div class="column">
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+  </div>
+  <div class="column">
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+  </div>
+  <div class="column">
+    <span class="dot"></span>
+  </div>
+</div>`,
+`<div class="eighth-face dice">
+  <div class="column">
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+  </div>
+  <div class="column">
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+  </div>
+  <div class="column">
+    <span class="dot"></span>
+    <span class="dot"></span>
+  </div>
+</div>`,
+`<div class="ninth-face dice">
+    <div class="column">
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+  </div>
+  <div class="column">
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+  </div>
+  <div class="column">
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+  </div>
+</div>`
 ];
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -112,10 +169,10 @@ document.addEventListener("DOMContentLoaded", () => {
   )}`;
   document.getElementById("roundNumber").innerHTML = `Roll #${round}`;
   let dice1 = document.getElementById("dice1");
-  dice1.innerHTML = dice[diceRoll[0] - 1];
+  dice1.innerHTML = dice[diceRoll[0]];
 
   let dice2 = document.getElementById("dice2");
-  dice2.innerHTML = dice[diceRoll[1] - 1];
+  dice2.innerHTML = dice[diceRoll[1]];
 
   setTimeout(() => {
     dice1.childNodes[0].classList.add("thrown");
@@ -127,8 +184,8 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   if (round > 1) {
-    document.getElementById("prevDice1").innerHTML = dice[prevDiceRoll[0] - 1];
-    document.getElementById("prevDice2").innerHTML = dice[prevDiceRoll[1] - 1];
+    document.getElementById("prevDice1").innerHTML = dice[prevDiceRoll[0]];
+    document.getElementById("prevDice2").innerHTML = dice[prevDiceRoll[1]];
   }
 });
 
